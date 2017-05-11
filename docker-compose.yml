@@ -44,7 +44,7 @@ services:
       - GITLAB_HTTPS=false
       - SSL_SELF_SIGNED=false
 
-      - GITLAB_HOST=128.199.206.30
+      - GITLAB_HOST=gitlab.chenghuiyong.com
       - GITLAB_PORT=8080
       - GITLAB_SSH_PORT=2222
       - GITLAB_RELATIVE_URL_ROOT=
