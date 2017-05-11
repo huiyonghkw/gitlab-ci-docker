@@ -1,0 +1,85 @@
+version: '2'
+services:
+  # Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  # Gitlab - GitLab is open source software to collaborate on code
+  gitlab:
+    image: sameersbn/gitlab:9.1.2
+    ports: 
+      - "8443:443"
+      - "8080:80"
+      - "2222:22"
+    volumes:
+      - ./gitlab/data:/home/git/data:Z
+    links:
+      - redis
+      - postgresql
+    environment:
+      - DEBUG=false
+      - DB_ADAPTER=postgresql
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+      - TZ=Asia/Shanghai
+      - GITLAB_TIMEZONE=Beijing
+
+      - GITLAB_HTTPS=false
+      - SSL_SELF_SIGNED=false
+
+      - GITLAB_HOST=128.199.206.30
+      - GITLAB_PORT=8080
+      - GITLAB_SSH_PORT=2222
+      - GITLAB_RELATIVE_URL_ROOT=
+      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
+      - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string
+      - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string
+
+      - GITLAB_ROOT_PASSWORD=
+      - GITLAB_ROOT_EMAIL=
+
+      - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
+      - GITLAB_NOTIFY_PUSHER=false
+
+      - GITLAB_EMAIL=notifications@chenghuiyong.com
+      - GITLAB_EMAIL_REPLY_TO=noreply@chenghuiyong.com
+      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@chenghuiyong.com
+
+      - GITLAB_BACKUP_SCHEDULE=daily
+      - GITLAB_BACKUP_TIME=01:00
+
+      - SMTP_ENABLED=false
+      - SMTP_DOMAIN=www.chenghuiyong.com
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=chenghuiyong1987@gmail.com
+      - SMTP_PASS=password
+      - SMTP_STARTTLS=true
+      - SMTP_AUTHENTICATION=login
+
+      - IMAP_ENABLED=false
+      - IMAP_HOST=imap.gmail.com
+      - IMAP_PORT=993
+      - IMAP_USER=chenghuiyong1987@gmail.com
+      - IMAP_PASS=password
+      - IMAP_SSL=true
+      - IMAP_STARTTLS=false
+  postgresql:
+    image: sameersbn/postgresql:9.6-2
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql:Z
+    environment:
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+      - DB_EXTENSION=pg_trgm
+    ports: 
+      - "5432:5432"
