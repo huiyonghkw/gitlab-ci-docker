@@ -1,5 +1,14 @@
 version: '2'
 services:
+  # Web Server
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    #source code container
+    volumes_from:
+      - www
   # Redis
   redis:
     image: redis
@@ -83,3 +92,7 @@ services:
       - DB_EXTENSION=pg_trgm
     ports: 
       - "5432:5432"
+  www:
+    image: tianon/true
+    volumes:
+      - ./www:/usr/share/nginx/html
