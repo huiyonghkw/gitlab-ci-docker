@@ -35,7 +35,7 @@ $ cd gitlab-docker
 $ sudo docker-compose build && docker-compose up -d
 ```
 
-As default, you can visit http://ipaddress:8080 when the gitlab image built complete. make sure the host port 80 is open.
+As default, you can visit http://ipaddress:8080 when the gitlab image built complete. 502. If the server response. Please try to refresh the browser for many times。
 
 ### Gitlab backup & restore
 
