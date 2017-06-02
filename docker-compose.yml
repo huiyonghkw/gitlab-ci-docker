@@ -1,13 +1,8 @@
 version: '2'
 services:
-  # Redis
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
-    image: sameersbn/gitlab:9.1.2
+    image: sameersbn/gitlab
     ports: 
       - "8443:443"
       - "8080:80"
@@ -15,8 +10,9 @@ services:
     volumes:
       - ./gitlab/data:/home/git/data:Z
     links:
-      - redis
       - postgresql
+    external_links:
+      - redis
     environment:
       - DEBUG=false
       - DB_ADAPTER=postgresql
@@ -35,7 +31,7 @@ services:
       - GITLAB_HTTPS=false
       - SSL_SELF_SIGNED=false
 
-      - GITLAB_HOST=128.199.206.30
+      - GITLAB_HOST=localhost
       - GITLAB_PORT=8080
       - GITLAB_SSH_PORT=2222
       - GITLAB_RELATIVE_URL_ROOT=
