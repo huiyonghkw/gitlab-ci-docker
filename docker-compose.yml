@@ -3,8 +3,8 @@ services:
   # Redis
   redis:
     image: redis:3.0-alpine
-    expose: 
-      - "6479"
+    ports:
+      - "6479:6479"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
     image: sameersbn/gitlab
@@ -17,61 +17,7 @@ services:
     links:
       - redis
       - postgresql
-    environment:
-      - DEBUG=false
-      - DB_ADAPTER=postgresql
-      - DB_HOST=postgresql
-      - DB_PORT=5432
-      - DB_USER=gitlab
-      - DB_PASS=password
-      - DB_NAME=gitlabhq_production
-
-      - REDIS_HOST=redis
-      - REDIS_PORT=6479
-
-      - TZ=Asia/Shanghai
-      - GITLAB_TIMEZONE=Beijing
-
-      - GITLAB_HTTPS=false
-      - SSL_SELF_SIGNED=false
-
-      - GITLAB_HOST=localhost
-      - GITLAB_PORT=8080
-      - GITLAB_SSH_PORT=2222
-      - GITLAB_RELATIVE_URL_ROOT=
-      - GITLAB_SECRETS_DB_KEY_BASE=base64:wJrklh4TJAwSUIxOAPagkPWzQgLSoZ+lekE3ClUkfg0=
-      - GITLAB_SECRETS_SECRET_KEY_BASE=base64:vSHULhdG2YK7ZU33iepRHKmxYxbxxgNPCRQaotGG5YE=
-      - GITLAB_SECRETS_OTP_KEY_BASE=base64:dg2lVNcO84EtV+Cjy9wZIie9OSjQLR6hPqJqRp/E/e4=
-
-      - GITLAB_ROOT_PASSWORD=iLiveLife
-      - GITLAB_ROOT_EMAIL=chenghuiyong1987@gmail.com
-
-      - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
-      - GITLAB_NOTIFY_PUSHER=false
-
-      - GITLAB_EMAIL=notifications@chenghuiyong.com
-      - GITLAB_EMAIL_REPLY_TO=noreply@chenghuiyong.com
-      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@chenghuiyong.com
-
-      - GITLAB_BACKUP_SCHEDULE=daily
-      - GITLAB_BACKUP_TIME=01:00
-
-      - SMTP_ENABLED=false
-      - SMTP_DOMAIN=www.chenghuiyong.com
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_PORT=587
-      - SMTP_USER=chenghuiyong1987@gmail.com
-      - SMTP_PASS=password
-      - SMTP_STARTTLS=true
-      - SMTP_AUTHENTICATION=login
-
-      - IMAP_ENABLED=false
-      - IMAP_HOST=imap.gmail.com
-      - IMAP_PORT=993
-      - IMAP_USER=chenghuiyong1987@gmail.com
-      - IMAP_PASS=password
-      - IMAP_SSL=true
-      - IMAP_STARTTLS=false
+    env_file: .env
   postgresql:
     image: sameersbn/postgresql
     volumes:
