@@ -6,7 +6,7 @@ services:
     command:
       - --loglevel warning
     volumes:
-      - ./redis:/var/lib/redis:Z
+      - ./redis/data:/var/lib/redis:Z
     ports:
       - "6479:6379"
   # Gitlab - GitLab is open source software to collaborate on code
@@ -33,4 +33,5 @@ services:
     links:
       - redis
       - postgresql
-    env_file: .env
+    env_file: 
+      - .env
