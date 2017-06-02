@@ -1,12 +1,15 @@
-# gitlab-docker
+Gitlab-Docker
+==
+
+
 GitLab is open source software to collaborate on code. 
 
-More about [sameersbn/docker-gitlab](https://github.com/sameersbn/docker-gitlab) .
+This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/docker-gitlab) to help you create Gitlab system quickly.
 
 
-# Feature
+## Feature
 
-- Docker Compose 
+- Docker Compose
 - PostgreSQL
 - Redis
 
@@ -15,17 +18,23 @@ More about [sameersbn/docker-gitlab](https://github.com/sameersbn/docker-gitlab)
 Please visit [here](https://github.com/bravist/lnmp-docker)
 
 
-# Usage
+## Usage
 
-1. clone the `gitlab-docker` on CentOS 7
+1.Clone this repository `gitlab-docker`
 
 
 ```bash
 $ git clone https://github.com/bravist/gitlab-docker
 ```
 
+2.Config the gitlab startup parameters.
 
-2. go to the gitlab-docker and build it with docker-compose
+```
+$ cp .env.example .env
+```
+
+
+3.Go into the `gitlab-docker` directory and build docker images and start up the docker container.
 
 ```bash
 
@@ -34,11 +43,11 @@ $ cd gitlab-docker
 $ sudo docker-compose build && docker-compose up -d
 ```
 
-As default, you can visit http://ipaddress:8080 when the gitlab image built complete. 502. If the server response. Please try to refresh the browser for many times。
+Please allow a couple of minutes for the GitLab application to start. then you can open http://ipaddress:8080. 502. If the server response. Please try to refresh the browser for many times。
 
-### Gitlab backup & restore
+## Gitlab backup & restore
 
-visit https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/backup_restore.md, please notice enter the container.
+Go into the container 
 
 ```bash
 # This command will create 1494401197_2017_05_10_gitlab_backup.tar on /var/opt/gitlab/backups/
@@ -53,3 +62,4 @@ $ sudo cp user@host:/destnation/1494401197_2017_05_10_gitlab_backup.tar user@hos
 $ sudo gitlab-rake gitlab:backup:restore BACKUP=1494401197_2017_05_10
 ```
 
+more about: https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/backup_restore.md
