@@ -12,7 +12,7 @@ services:
     links:
       - postgresql
     external_links:
-      - lnmp-redis
+      - lnmp-redis:redis
     environment:
       - DEBUG=false
       - DB_ADAPTER=postgresql
