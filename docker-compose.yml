@@ -2,15 +2,15 @@ version: '2'
 services:
   # Redis
   redis:
-    image: redis
+    build: ./redis
     ports:
-      - "6379:6379"
+      - "6380:6380"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
-    image: sameersbn/gitlab:9.1.2
+    image: sameersbn/gitlab
     ports: 
       - "8443:443"
-      - "8080:80"
+      - "8080:8080"
       - "2222:22"
     volumes:
       - ./gitlab/data:/home/git/data:Z
@@ -27,7 +27,7 @@ services:
       - DB_NAME=gitlabhq_production
 
       - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_PORT=6380
 
       - TZ=Asia/Shanghai
       - GITLAB_TIMEZONE=Beijing
@@ -35,7 +35,7 @@ services:
       - GITLAB_HTTPS=false
       - SSL_SELF_SIGNED=false
 
-      - GITLAB_HOST=128.199.206.30
+      - GITLAB_HOST=localhost
       - GITLAB_PORT=8080
       - GITLAB_SSH_PORT=2222
       - GITLAB_RELATIVE_URL_ROOT=
@@ -73,7 +73,7 @@ services:
       - IMAP_SSL=true
       - IMAP_STARTTLS=false
   postgresql:
-    image: sameersbn/postgresql:9.6-2
+    image: sameersbn/postgresql
     volumes:
       - ./postgresql/data:/var/lib/postgresql:Z
     environment:
