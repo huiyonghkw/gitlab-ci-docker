@@ -4,7 +4,7 @@ services:
   redis:
     build: ./redis
     ports:
-      - "6479:6479"
+      - "6479:6379"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
     image: sameersbn/gitlab
