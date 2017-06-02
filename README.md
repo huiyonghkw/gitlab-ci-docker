@@ -1,13 +1,12 @@
 # gitlab-docker
-GitLab is open source software to collaborate on code
+GitLab is open source software to collaborate on code. 
+
+More about [sameersbn/docker-gitlab](https://github.com/sameersbn/docker-gitlab) .
 
 
-#### Features
+# Feature
 
-- CentOS 7.*
-- Docker
-- Docker Compose
-- Gitlab CE 
+- Docker Compose 
 - PostgreSQL
 - Redis
 
