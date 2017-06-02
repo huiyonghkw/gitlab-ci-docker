@@ -2,7 +2,7 @@ version: '2'
 services:
   # Redis
   redis:
-    image: redis:3.0-alpine
+    build: ./redis
     ports:
       - "6479:6479"
   # Gitlab - GitLab is open source software to collaborate on code
