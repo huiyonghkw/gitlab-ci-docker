@@ -3,8 +3,8 @@ services:
   # Redis
   redis:
     image: redis:3.0-alpine
-    ports:
-      - "6379:6379"
+    expose: 
+      - "6479"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
     image: sameersbn/gitlab
@@ -27,7 +27,7 @@ services:
       - DB_NAME=gitlabhq_production
 
       - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_PORT=6479
 
       - TZ=Asia/Shanghai
       - GITLAB_TIMEZONE=Beijing
