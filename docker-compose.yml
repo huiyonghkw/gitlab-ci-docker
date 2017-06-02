@@ -1,11 +1,27 @@
 version: '2'
 services:
-  # Redis
   redis:
-    image: redis:3.0-alpine
+    restart: always
+    image: sameersbn/redis:latest
+    command:
+      - --loglevel warning
+    volumes:
+      - ./redis:/var/lib/redis:Z
     ports:
       - "6479:6379"
   # Gitlab - GitLab is open source software to collaborate on code
+  postgresql:
+    restart: always
+    image: sameersbn/postgresql:9.6-2
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql:Z
+    environment:
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+      - DB_EXTENSION=pg_trgm
+    ports: 
+      - "5432:5432"
   gitlab:
     image: sameersbn/gitlab:9.2.2
     ports: 
@@ -18,14 +34,3 @@ services:
       - redis
       - postgresql
     env_file: .env
-  postgresql:
-    image: sameersbn/postgresql:9.6-2
-    volumes:
-      - ./postgresql/data:/var/lib/postgresql
-    environment:
-      - DB_USER=gitlab
-      - DB_PASS=password
-      - DB_NAME=gitlabhq_production
-      - DB_EXTENSION=pg_trgm
-    ports: 
-      - "5432:5432"
