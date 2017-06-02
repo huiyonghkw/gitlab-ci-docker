@@ -12,7 +12,7 @@ services:
     links:
       - postgresql
     external_links:
-      - redis
+      - lnmp-redis
     environment:
       - DEBUG=false
       - DB_ADAPTER=postgresql
@@ -22,7 +22,7 @@ services:
       - DB_PASS=password
       - DB_NAME=gitlabhq_production
 
-      - REDIS_HOST=redis
+      - REDIS_HOST=lnmp-redis
       - REDIS_PORT=6379
 
       - TZ=Asia/Shanghai
