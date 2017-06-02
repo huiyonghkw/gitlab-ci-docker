@@ -5,12 +5,13 @@ services:
     image: sameersbn/gitlab
     ports: 
       - "8443:443"
-      - "8080:8080"
+      - "8080:80"
       - "2222:22"
     volumes:
       - ./gitlab/data:/home/git/data:Z
     links:
       - postgresql
+      - redis
     external_links:
       - lnmp-redis:redis
     environment:
@@ -22,7 +23,7 @@ services:
       - DB_PASS=password
       - DB_NAME=gitlabhq_production
 
-      - REDIS_HOST=lnmp-redis
+      - REDIS_HOST=redis
       - REDIS_PORT=6379
 
       - TZ=Asia/Shanghai
