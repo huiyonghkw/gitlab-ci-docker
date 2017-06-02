@@ -4,13 +4,13 @@ services:
   redis:
     build: ./redis
     ports:
-      - "6380:6380"
+      - "6379:6380"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
     image: sameersbn/gitlab
     ports: 
       - "8443:443"
-      - "8080:8080"
+      - "8080:80"
       - "2222:22"
     volumes:
       - ./gitlab/data:/home/git/data:Z
