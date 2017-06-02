@@ -7,7 +7,7 @@ services:
       - "6479:6379"
   # Gitlab - GitLab is open source software to collaborate on code
   gitlab:
-    image: sameersbn/gitlab
+    image: sameersbn/gitlab:9.2.2
     ports: 
       - "8443:443"
       - "8080:80"
@@ -19,9 +19,9 @@ services:
       - postgresql
     env_file: .env
   postgresql:
-    image: sameersbn/postgresql
+    image: sameersbn/postgresql:9.6-2
     volumes:
-      - ./postgresql/data:/var/lib/postgresql:Z
+      - ./postgresql/data:/var/lib/postgresql
     environment:
       - DB_USER=gitlab
       - DB_PASS=password
