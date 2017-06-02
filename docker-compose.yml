@@ -11,7 +11,6 @@ services:
       - ./gitlab/data:/home/git/data:Z
     links:
       - postgresql
-      - redis
     external_links:
       - lnmp-redis:redis
     environment:
