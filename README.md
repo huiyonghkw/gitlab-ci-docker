@@ -39,6 +39,14 @@ This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/dock
 # docker info
 ```
 
+
+另外，使用阿里云提供的安装脚本安装Docker
+
+```
+# curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -
+```
+
+
 4.针对Docker客户端版本大于1.10的配置阿里云加速器
 
 ```bash
