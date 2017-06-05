@@ -12,10 +12,14 @@ This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/dock
 - Docker Compose
 - PostgreSQL
 - Redis
+- Gitlab
 
 ## Install docker on CentOS 7
 
 Please visit [here](https://github.com/bravist/lnmp-docker)
+
+
+> 国内用户，推荐使用[阿里云](https://github.com/bravist/gitlab-docker/tree/aliyun)分支安装Docker 
 
 
 ## Usage
