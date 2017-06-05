@@ -1,4 +1,4 @@
-Gitlab-Docker
+Gitlab-Docker for Aliyun
 ==
 
 
@@ -12,11 +12,48 @@ This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/dock
 - Docker Compose
 - PostgreSQL
 - Redis
+- Gitlab
 
-## Install docker on CentOS 7
+> Docker要求64位的系统且内核版本至少为3.10
 
-Please visit [here](https://github.com/bravist/lnmp-docker)
+## Install docker on Aliyun ECS
 
+1.添加yum源
+
+```
+# yum install epel-release –y
+
+# yum clean all
+```
+
+2.安装并运行Docker
+
+```
+# yum install docker-io –y
+
+# systemctl start docker
+
+
+```
+3.检查安装结果
+
+```
+# docker info
+```
+
+4.针对Docker客户端版本大于1.10的配置阿里云加速器
+
+```
+$ sudo mkdir -p /etc/docker
+$ sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://muehonsf.mirror.aliyuncs.com"]
+}
+EOF
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+``
 
 ## Usage
 
@@ -62,4 +99,9 @@ $ sudo cp user@host:/destnation/1494401197_2017_05_10_gitlab_backup.tar user@hos
 $ sudo gitlab-rake gitlab:backup:restore BACKUP=1494401197_2017_05_10
 ```
 
-more about: https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/backup_restore.md
+##Reference
+
++ [ECS上搭建Docker(CentOS7)
+](https://help.aliyun.com/document_detail/51853.html?spm=5176.8208715.110.1.ps6bxJ)
++ [使用加速器将会提升您在国内获取Docker官方镜像的速度！
+](https://cr.console.aliyun.com/?spm=5176.2020520152.210.d103.H4Rlih#/accelerator)
