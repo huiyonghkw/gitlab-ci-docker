@@ -2,7 +2,7 @@ version: '2'
 services:
   redis:
     restart: always
-    image: sameersbn/redis:latest
+    image: registry.cn-hangzhou.aliyuncs.com/acs-sample/redis-sameersbn:latest
     command:
       - --loglevel warning
     volumes:
@@ -12,7 +12,7 @@ services:
   # Gitlab - GitLab is open source software to collaborate on code
   postgresql:
     restart: always
-    image: sameersbn/postgresql:9.6-2
+    image: registry.cn-hangzhou.aliyuncs.com/acs-sample/postgresql-sameersbn:9.4-24
     volumes:
       - ./postgresql/data:/var/lib/postgresql:Z
     environment:
@@ -23,7 +23,7 @@ services:
     ports: 
       - "5432:5432"
   gitlab:
-    image: sameersbn/gitlab:9.2.2
+    image: registry.cn-hangzhou.aliyuncs.com/acs-sample/gitlab-sameersbn:latest
     ports: 
       - "8443:443"
       - "8080:80"
