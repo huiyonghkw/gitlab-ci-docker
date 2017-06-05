@@ -32,8 +32,6 @@ This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/dock
 # yum install docker-io –y
 
 # systemctl start docker
-
-
 ```
 3.检查安装结果
 
@@ -53,7 +51,7 @@ EOF
 
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
-``
+```
 
 ## Usage
 
