@@ -62,6 +62,16 @@ $ sudo systemctl restart docker
 
 ```
 
+## Install Docker Compose
+
+open [https://github.com/docker/compose/releases](https://github.com/docker/compose/releases) page. choose the release and download it.
+
+```
+$ curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
+$ chmod +x /usr/local/bin/docker-compose
+```
+
 
 ## Usage
 
