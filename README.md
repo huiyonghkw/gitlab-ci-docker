@@ -108,9 +108,10 @@ $ sudo gitlab-rake gitlab:backup:restore BACKUP=1494401197_2017_05_10
 ```
 
 
-##References
+## References
 
 + [ECS上搭建Docker(CentOS7)
 ](https://help.aliyun.com/document_detail/51853.html?spm=5176.8208715.110.1.ps6bxJ)
 + [使用加速器将会提升您在国内获取Docker官方镜像的速度！
 ](https://cr.console.aliyun.com/?spm=5176.2020520152.210.d103.H4Rlih#/accelerator)
++ [CentOS 操作系统安装 Docker](https://yeasy.gitbooks.io/docker_practice/content/install/centos.html)
