@@ -99,7 +99,8 @@ $ sudo cp user@host:/destnation/1494401197_2017_05_10_gitlab_backup.tar user@hos
 $ sudo gitlab-rake gitlab:backup:restore BACKUP=1494401197_2017_05_10
 ```
 
-##Reference
+
+##References
 
 + [ECS上搭建Docker(CentOS7)
 ](https://help.aliyun.com/document_detail/51853.html?spm=5176.8208715.110.1.ps6bxJ)
