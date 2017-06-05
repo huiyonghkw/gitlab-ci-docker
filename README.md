@@ -35,13 +35,13 @@ This recipe based on [sameersbn/docker-gitlab](https://github.com/sameersbn/dock
 ```
 3.检查安装结果
 
-```
+```bash
 # docker info
 ```
 
 4.针对Docker客户端版本大于1.10的配置阿里云加速器
 
-```
+```bash
 $ sudo mkdir -p /etc/docker
 $ sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -51,7 +51,9 @@ EOF
 
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
+
 ```
+
 
 ## Usage
 
