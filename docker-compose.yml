@@ -3,12 +3,8 @@ services:
   redis:
     restart: always
     image: sameersbn/redis:latest
-    command:
-      - --loglevel warning
-    volumes:
-      - ./redis/data:/var/lib/redis:Z
     ports:
-      - "6479:6379"
+      - "6479:6479"
   # Gitlab - GitLab is open source software to collaborate on code
   postgresql:
     restart: always
