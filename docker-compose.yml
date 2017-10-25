@@ -4,7 +4,7 @@ services:
     restart: always
     image: sameersbn/redis:latest
     ports:
-      - "6479:6479"
+      - "6479:6379"
   # Gitlab - GitLab is open source software to collaborate on code
   postgresql:
     restart: always
