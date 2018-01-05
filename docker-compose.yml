@@ -7,6 +7,8 @@ services:
     - --loglevel warning
     ports:
       - "6479:6379"
+    volumes:
+    - /srv/docker/gitlab/redis:/var/lib/redis:Z
   # Gitlab - GitLab is open source software to collaborate on code
   postgresql:
     restart: always
