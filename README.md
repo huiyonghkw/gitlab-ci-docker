@@ -53,5 +53,10 @@ Please allow a couple of minutes for the GitLab application to start. then you c
 
 ```bash
 $ docker exec -it gitlabdocker_gitlab_1 sh
-# cd /home/git/gitlab && bundle exec rake gitlab:backup:create SKIP= RAILS_ENV=production
+
+# backup, for example file: 1515124070_2018_01_05_9.2.2_gitlab_backup.tar
+$ cd /home/git/gitlab && bundle exec rake gitlab:backup:create SKIP= RAILS_ENV=production
+
+# restore
+$ cd /home/git/gitlab && bundle exec rake gitlab:backup:restore
 ```

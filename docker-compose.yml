@@ -5,10 +5,9 @@ services:
     image: sameersbn/redis:latest
     command:
     - --loglevel warning
-    ports:
-      - "6479:6379"
     volumes:
-    - /srv/docker/gitlab/redis:/var/lib/redis:Z
+    - ./redis:/var/lib/redis:Z
+
   # Gitlab - GitLab is open source software to collaborate on code
   postgresql:
     restart: always
@@ -20,17 +19,14 @@ services:
       - DB_PASS=password
       - DB_NAME=gitlabhq_production
       - DB_EXTENSION=pg_trgm
-    ports: 
-      - "5432:5432"
   gitlab:
-    image: sameersbn/gitlab:10.3.3
-    ports: 
-      - "8443:443"
-      - "8080:80"
-      - "2222:22"
+    image: sameersbn/gitlab:9.2.2
+    ports:
+      - "10080:80"
+      - "10022:22"
     volumes:
       - ./gitlab/data:/home/git/data:Z
-      - ./gitlab/logs:/var/log/gitlab
+      - ./gitlab/logs:/var/log/gitlab:Z
     depends_on:
       - redis
       - postgresql
