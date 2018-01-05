@@ -49,21 +49,9 @@ $ sudo docker-compose build && docker-compose up -d
 
 Please allow a couple of minutes for the GitLab application to start. then you can open http://ipaddress:8080. 502. If the server response. Please try to refresh the browser for many times。
 
-## Gitlab backup & restore
-
-Go into the container 
+## [Gitlab backup & restore](https://github.com/sameersbn/docker-gitlab#creating-backups)
 
 ```bash
-# This command will create 1494401197_2017_05_10_gitlab_backup.tar on /var/opt/gitlab/backups/
-$ sudo gitlab-rake gitlab:backup:create
-
-...
-#  Copy the backup file to the server's /mnt/lnmp-docker/gitlab/data/backups
-$ sudo cp user@host:/destnation/1494401197_2017_05_10_gitlab_backup.tar user@host:/mnt/lnmp-docker/gitlab/data/backups
-...
-
-# This command will overwrite the contents of your GitLab database!
-$ sudo gitlab-rake gitlab:backup:restore BACKUP=1494401197_2017_05_10
+$ docker exec -it gitlabdocker_gitlab_1 sh
+# cd /home/git/gitlab && bundle exec rake gitlab:backup:create SKIP= RAILS_ENV=production
 ```
-
-more about: https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/backup_restore.md
