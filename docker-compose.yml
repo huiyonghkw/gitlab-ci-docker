@@ -12,6 +12,8 @@ services:
   postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
+    ports:
+      - "5432:5432"
     volumes:
       - ./postgresql/data:/var/lib/postgresql:Z
     environment:
