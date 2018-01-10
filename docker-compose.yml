@@ -22,10 +22,10 @@ services:
       - DB_NAME=gitlabhq_production
       - DB_EXTENSION=pg_trgm
   gitlab:
-    image: sameersbn/gitlab:9.2.2
+    image: sameersbn/gitlab:10.3.3
     ports:
-      - "8080:80"
-      - "2222:22"
+      - "10080:80"
+      - "10022:22"
     volumes:
       - ./gitlab/data:/home/git/data:Z
       - ./gitlab/logs:/var/log/gitlab:Z
