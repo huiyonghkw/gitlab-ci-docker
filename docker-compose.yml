@@ -34,3 +34,9 @@ services:
       - postgresql
     env_file: 
       - .env
+  gitlab-ci:
+    image: gitlab/gitlab-runner:alpine
+    volumes:
+      - ./gitlab-ci/config:/etc/gitlab-runner:Z
+      - ./gitlab-ci/run:/home/gitlab-runner:Z
+
