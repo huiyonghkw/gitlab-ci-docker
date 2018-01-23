@@ -39,4 +39,5 @@ services:
     volumes:
       - ./gitlab-ci/config:/etc/gitlab-runner:Z
       - ./gitlab-ci/run:/home/gitlab-runner:Z
+      - ./gitlab-ci/run:/var/run/docker.sock
 
