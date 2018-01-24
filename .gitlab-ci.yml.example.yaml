@@ -1,0 +1,52 @@
+stages:
+  - pull_code
+  - install_deps
+  - test
+  - build
+  - deploy_test
+  - deploy_production
+
+variables:
+  PHP_FPM_CONTAINER: lnmp-php-fpm
+  WORK_DIR: /usr/share/nginx/html/
+#   ENVOY: /home/gitlab-runner/.composer/vendor/bin/envoy
+
+# 拉取代码
+pull_code: 
+  stage: pull_code
+  only: 
+    - develop
+    - master
+  script: 
+     - git pull origin develop
+     - git pull origin master
+# 安装依赖
+install_deps:
+  stage: install_deps
+  only:
+    - develop
+    - master
+  script: 
+    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} composer install
+build: 
+  stage: build
+  script: 
+    # Run migrations
+    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan migrate
+    # Cache clearing
+    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan cache:clear
+    # Create a cache file for faster configuration loading
+    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan config:cache
+    # Create a route cache file for faster route registration
+    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan route:clear
+deploy_test: 
+  stage: deploy_test
+  script:
+    - cd /mnt/lnmp-docker
+    - docker-compose down && docker-compose build && docker-compose up -d
+deploy_production: 
+  stage: deploy_production
+  script:
+    - cd /mnt/lnmp-docker
+    - docker-compose restart
+
