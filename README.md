@@ -1,4 +1,4 @@
-Gitlab-Docker
+Gitlab && Gitlab-CI for Docker
 ==
 
 
