@@ -1,52 +1,54 @@
 stages:
-  - pull_code
+  - pull_code_test
+  - pull_code_production
   - install_deps
   - test
   - build
   - deploy_test
   - deploy_production
-
 variables:
   PHP_FPM_CONTAINER: lnmp-php-fpm
   WORK_DIR: /usr/share/nginx/html/
-#   ENVOY: /home/gitlab-runner/.composer/vendor/bin/envoy
-
+  PROJECT: laravel-demo
+  GIT_DIR: /mnt/lnmp-docker
 # 拉取代码
-pull_code: 
-  stage: pull_code
+pull_code_test: 
+  stage: pull_code_test
   only: 
     - develop
+  script: 
+     - cd ${GIT_DIR}/${PROJECT}
+     - git pull origin develop
+pull_code_production:
+  stage: pull_code_production
+  only:
     - master
   script: 
-     - git pull origin develop
-     - git pull origin master
+    - cd ${GIT_DIR}/${PROJECT}
+    - git pull origin master
 # 安装依赖
 install_deps:
   stage: install_deps
-  only:
-    - develop
-    - master
   script: 
-    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} composer install
+    - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} composer install
 build: 
   stage: build
   script: 
     # Run migrations
-    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan migrate
+    - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan migrate
     # Cache clearing
-    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan cache:clear
+    - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan cache:clear
     # Create a cache file for faster configuration loading
-    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan config:cache
+    - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan config:cache
     # Create a route cache file for faster route registration
-    - docker exec -w ${WORK_DIR} ${PHP_FPM_CONTAINER} php artisan route:clear
+    - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan route:clear
 deploy_test: 
   stage: deploy_test
   script:
-    - cd /mnt/lnmp-docker
+    - cd ${GIT_DIR}
     - docker-compose down && docker-compose build && docker-compose up -d
 deploy_production: 
   stage: deploy_production
   script:
-    - cd /mnt/lnmp-docker
+    - cd ${GIT_DIR}
     - docker-compose restart
-
