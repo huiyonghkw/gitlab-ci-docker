@@ -35,10 +35,11 @@ services:
     env_file: 
       - .env
   gitlab-ci:
-    image: gitlab/gitlab-runner:alpine
+    build: ./gitlab-ci
+    container_name: gitlab-ci
     volumes:
       - ./gitlab-ci/config:/etc/gitlab-runner:Z
-      - ./gitlab-ci/run:/home/gitlab-runner:Z
+      - /Users/chenghuiyong/lnmp-docker/www:/home/gitlab-runner:Z
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
 
