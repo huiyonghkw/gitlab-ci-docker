@@ -91,3 +91,7 @@ RUN curl -sS https://getcomposer.org/installer | \
 USER gitlab-runner
 RUN ssh-keygen -t rsa -f /home/gitlab-runner/.ssh/id_rsa -q -N ""
 RUN composer global require laravel/envoy
+
+VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
+ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
+CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
