@@ -3,6 +3,7 @@ services:
   redis:
     restart: always
     image: sameersbn/redis:latest
+    container_name: gitlab-redis
     command:
     - --loglevel warning
     volumes:
@@ -12,6 +13,7 @@ services:
   postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
+    container_name: gitlab-postgresql
     ports:
       - "5432:5432"
     volumes:
@@ -35,11 +37,11 @@ services:
     env_file: 
       - .env
   gitlab-ci:
-    build: ./gitlab-ci
-    container_name: gitlab-ci
+    image: bravist/gitlab-ci-php-envoy:1.0
+    container_name: gitlab-ci-php-envoy-runner
     volumes:
       - ./gitlab-ci/config:/etc/gitlab-runner:Z
-      - /Users/chenghuiyong/lnmp-docker/www:/home/gitlab-runner:Z
+      - ./gitlab-ci/run:/home/gitlab-runner:Z
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
 
