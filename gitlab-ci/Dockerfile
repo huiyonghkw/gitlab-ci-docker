@@ -93,4 +93,4 @@ RUN composer global require laravel/envoy
 
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
-CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
+CMD ["run", "--user=root", "--working-directory=/root"]
