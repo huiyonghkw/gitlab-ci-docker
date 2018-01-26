@@ -88,8 +88,7 @@ RUN sed -i "s|;*date.timezone =.*|date.timezone = ${TIMEZONE}|i" /etc/php7/php.i
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
 
-USER gitlab-runner
-RUN ssh-keygen -t rsa -f /home/gitlab-runner/.ssh/id_rsa -q -N ""
+RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -N ""
 RUN composer global require laravel/envoy
 
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
