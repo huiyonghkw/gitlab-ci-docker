@@ -41,7 +41,7 @@ services:
     container_name: gitlab-ci-php-envoy-runner
     volumes:
       - ./gitlab-ci/config:/etc/gitlab-runner:Z
-      - ./gitlab-ci/run:/home/gitlab-runner:Z
+      - ./gitlab-ci/.ssh:/home/gitlab-runner/.ssh:Z
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
 
