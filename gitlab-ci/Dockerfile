@@ -92,3 +92,5 @@ RUN mkdir -p /root/.ssh
 RUN composer global require laravel/envoy
 
 VOLUME ["/root/.ssh"]
+
+CMD ["run", "--user=root", "--working-directory=/root"]
