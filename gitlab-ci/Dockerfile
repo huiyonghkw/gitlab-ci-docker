@@ -89,7 +89,6 @@ RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN mkdir -p /home/gitlab-runner/.ssh
-RUN chown -R gitlab-runner:gitlab-runner /home/gitlab-runner
 RUN composer global require laravel/envoy
 
 VOLUME ["/home/gitlab-runner/.ssh"]
