@@ -39,11 +39,11 @@ Git团队开发中，大家都在向仓库中提交功能代码，时间久了�
 
 ## 快速运行Gitlab
 
-Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installation/)提供多种Gitlab安装方式。此项目是基于Docker版本的Gitlab实现，开发者无需更多关心Gitlab安装过程，Docker镜像已做好了环境和依赖，只需要一台*Unix机器，并安装Docker，可以放心安装和卸载。
+Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installation/)提供多种Gitlab安装方式。此项目是基于Docker版本的Gitlab实现，开发者无需更多关心Gitlab安装过程，Docker镜像已做好了环境和依赖。
 
-该项目基于[Docker GitLab](http://www.damagehead.com/docker-gitlab/) 镜像构建，它将Gitlab/PostgreSQL/Redis容器进行了分离，更友好的理解其运行依赖，组织结构等内容，提供一套容器编排配置参考，支持Docker Compose快速构建与维护。
+该项目基于[Docker GitLab](http://www.damagehead.com/docker-gitlab/) 镜像构建，它将Gitlab/PostgreSQL/Redis容器拆分，分离了运行时数据。同时，提供一套容器编排配置参考，支持Docker Compose快速构建与维护。
 
-运行以下命令，确保你的主机已经安装好了Docker与Docke-Compose。
+确保你的主机已经安装好了Docker与Docke-Compose，按照下面的方式快速运行Gitlab。
 
 1. 克隆仓库
 
@@ -58,13 +58,13 @@ Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installati
    $ cp .env.example .env
    ```
 
-3. 使用`docker-compose` 自动构建镜像和启动容器
+3. 使用`docker-compose`构建镜像和启动容器
 
    ```sh
    $ docker-compose build && docker-compose up -d
    ```
 
-4. 查看容器并访问Gitlab Web控制台
+4. 确认容器构建成功，Gitlab Web控制台访问：http://localhost:10080/，如果出现502错误，请稍后再次访问，容器构建Gitlab需要等待依赖安装完成。
 
    ```bash
    CONTAINER ID        IMAGE                             COMMAND                  CREATED             STATUS              PORTS                                                   NAMES
@@ -73,12 +73,7 @@ Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installati
    f598844c561c        sameersbn/redis:latest            "/sbin/entrypoint.sh…"   7 seconds ago       Up 6 seconds        6379/tcp                                                gitlab-redis
    73d93b7cd110        sameersbn/postgresql:9.6-2        "/sbin/entrypoint.sh"    7 seconds ago       Up 5 seconds        0.0.0.0:5432->5432/tcp                                  gitlab-postgresql
    ```
-
-   使用浏览器访问：http://localhost:10080/ 。默认会启动一台Gitlab Runner 容器，支持快速配置你的CI/CD。
-
-   ![Sign in · GitLab](Sign in · GitLab.png)
-
-
+项目内置了Gitlab Runner镜像，默认会启动一台Gitlab Runner容器，让你在本地可以快速搭建CI/CD服务。
 
 ## 持续集成/持续交互（CI/CD） 
 
