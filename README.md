@@ -64,7 +64,7 @@ Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installati
    $ docker-compose build && docker-compose up -d
    ```
 
-4. 确认容器构建成功，Gitlab Web控制台访问：http://localhost:10080/，如果出现502错误，请稍后再次访问，容器构建Gitlab需要等待依赖安装完成。
+4. 确认容器构建成功，Gitlab Web控制台访问：[http://localhost:10080/](http://localhost:10080/)，如果出现502错误，请稍后再次访问，容器构建Gitlab需要等待依赖安装完成。
 
    ```bash
    CONTAINER ID        IMAGE                             COMMAND                  CREATED             STATUS              PORTS                                                   NAMES
