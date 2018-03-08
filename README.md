@@ -174,7 +174,7 @@ deploy_production:
 
 
 
-##Gitlab Runner - 自动构建与部署的执行
+## Gitlab Runner - 自动构建与部署的执行
 
 GitLab Runner 是一个开源项目， 它用来运行你定制的任务（jobs）并把结果返回给 GitLab。 GitLab Runner 配合[GitLab CI](https://about.gitlab.com/gitlab-ci)（GitLab 内置的持续集成服务） 协调完成任务。 [GitLab Runner](https://docs.gitlab.com.cn/runner/)
 
@@ -190,7 +190,7 @@ Gitlab Runner安装运行之后，需要[注册到Gitlab项目中去](https://do
 
 ![Gitlab Runner Register Parameters](./Gitlab-Runner-Register.png)
 
-###2. 为项目注册一个Shell 类型的Gitlab Runner 
+### 2. 为项目注册一个Shell 类型的Gitlab Runner 
 
 ```shell
 $ docker exec -it gitlab-ci-php-envoy-runner gitlab-ci-multi-runner register
@@ -232,7 +232,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 注册成功后，页面会多出一个正在运行的Runner绿色标志。
 
-##Gitlab CI/CD运行流程
+## Gitlab CI/CD运行流程
 
 如果你了解https://github.com/bravist/lnmp-docker，对于下面的图不会陌生，主要提供了一套Web应用自动构建与交付流程架构。
 
