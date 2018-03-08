@@ -234,7 +234,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 ## Gitlab CI/CD运行流程
 
-如果你了解https://github.com/bravist/lnmp-docker，对于下面的图不会陌生，主要提供了一套Web应用自动构建与交付流程架构。
+如果你了解[bravist/lnmp-docker(https://github.com/bravist/lnmp-docker)，对于下面的图不会陌生，主要提供了一套Web应用自动构建与交付流程架构。
 
 通常情况下Gitlab Runner与Gitlab无需运行在同一台服务器，他们之间通信基于授信TOKEN，整个运行流程是：
 
