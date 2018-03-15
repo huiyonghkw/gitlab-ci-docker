@@ -11,7 +11,7 @@
     - [获取注册参数 ](#获取注册参数 )
     - [注册Gitlab-Runner](#注册Gitlab-Runner)
 - [CI/CD运行流程](#CI/CD运行流程)
-- [CI/CD分布式构建参考](#CI/CD分布式构建参考)
+- [CI/CD分布式](#CI/CD分布式)
 
 
 此项目能做什么
@@ -276,7 +276,7 @@ CI/CD运行流程
 
 ![Usage-Docker](./Usage-Docker.png)
 
-CI/CD分布式构建参考
+CI/CD分布式
 ------
 
 
