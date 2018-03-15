@@ -3,15 +3,15 @@
 此文档基于现有项目运行实践整理，其中包含了许多Gitlab、CI/CD相关概念，阅读需要有一定的Gitlab、Docker、CI/CD基础知识。
 
 ## 目录
-* [此项目能做什么](#此项目能做什么)
-* [Git Flow / Github Flow /Gitlab Flow Git工作流](#Git Flow/ Github Flow /Gitlab Flow Git工作流)
-* [快速运行Gitlab](#快速运行Gitlab)
-* [持续集成/持续交互（CI/CD） ](#持续集成/持续交互（CI/CD） )
-* Gitlab Runner - 自动构建与部署的执行](#Gitlab Runner - 自动构建与部署的执行)
-  * [1. 获取注册参数 ](#1. 获取注册参数 )
-  * [2. 为项目注册一个Shell 类型的Gitlab Runner ](#2. 为项目注册一个Shell 类型的Gitlab Runner )
-* [Gitlab CI/CD运行流程](#Gitlab CI/CD运行流程)
-* [Gitlab CI/CD 分布式构建参考](#Gitlab CI/CD 分布式构建参考)
+- [此项目能做什么](#此项目能做什么)
+- [Git-Flow/Github-Flow/Gitlab-Flow工作流](#Git-Flow/Github-Flow/Gitlab-Flow工作流)
+- [快速运行Gitlab](#快速运行Gitlab)
+- [持续集成/持续交互](#持续集成/持续交互)
+- [Gitlab-Runner自动构建与部署的执行](#Gitlab-Runner自动构建与部署的执行)
+    - [获取注册参数 ](#获取注册参数 )
+    - [注册Gitlab-Runner](#注册Gitlab-Runner)
+- [CI/CD运行流程](#CI/CD运行流程)
+* [CI/CD分布式构建参考](#CI/CD分布式构建参考)
 
 
 此项目能做什么
@@ -24,7 +24,7 @@
 5. 加深对软件从编码 =》 构建 =》 测试 =》 部署的整个生命周期的认知，
 6. 为Web/Web API类型互联网产品自动化提供参考，适合中小型创业研发团队快速迭代版本。
 
-Git Flow / Github Flow /Gitlab Flow Git工作流
+Git-Flow/Github-Flow/Gitlab-Flow工作流
 ------
 
 Git团队开发中，大家都在向仓库中提交功能代码，时间久了，分支与版本就逐渐增多而变得复杂，因此，一个合理的版本管理流程在项目初期就非常重要。
@@ -89,7 +89,7 @@ Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installati
    ```
    项目内置了Gitlab Runner镜像，默认会启动一台Gitlab Runner容器，让你在本地可以快速搭建CI/CD服务。
 
-持续集成/持续交互（CI/CD） 
+持续集成/持续交互
 ------
 
 
@@ -185,7 +185,7 @@ deploy_production:
 
 
 
-Gitlab Runner - 自动构建与部署的执行
+Gitlab-Runner自动构建与部署的执行
 ------
 
 
@@ -197,7 +197,7 @@ Gitlab Runner安装有多种方式，具体可以参考[官方文档](https://do
 
 Gitlab Runner安装运行之后，需要[注册到Gitlab项目中去](https://docs.gitlab.com.cn/runner/register/index.html)，才能使用其“功效”。
 
-1.获取注册参数 
+获取注册参数 
 ------
 
 
@@ -205,7 +205,7 @@ Gitlab Runner安装运行之后，需要[注册到Gitlab项目中去](https://do
 
 ![Gitlab Runner Register Parameters](./Gitlab-Runner-Register.png)
 
-2.为项目注册一个Shell 类型的Gitlab Runner 
+注册Gitlab-Runner
 ------
 
 
@@ -249,7 +249,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 注册成功后，页面会多出一个正在运行的Runner绿色标志。
 
-Gitlab CI/CD运行流程
+CI/CD运行流程
 ------
 
 
@@ -272,7 +272,7 @@ Gitlab CI/CD运行流程
 
 ![Usage-Docker](./Usage-Docker.png)
 
-Gitlab CI/CD 分布式构建参考
+CI/CD分布式构建参考
 ------
 
 
