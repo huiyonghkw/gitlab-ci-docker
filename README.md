@@ -27,6 +27,8 @@
 Git-Flow/Github-Flow/Gitlab-Flow工作流
 ------
 
+
+
 Git团队开发中，大家都在向仓库中提交功能代码，时间久了，分支与版本就逐渐增多而变得复杂，因此，一个合理的版本管理流程在项目初期就非常重要。
 
 使用Git，多数时候推荐流行的git-flow工作流程 [git-flow 备忘清单](https://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)。通常，develop分支作为测试版本使用，所有开发者都能够向该分支合并代码，以保证代码经过评审和功能验证。master分支作为线上版本使用，只有仓库管理员才能向该分支合并代码，以确保线上版本稳定。
@@ -50,7 +52,9 @@ Git团队开发中，大家都在向仓库中提交功能代码，时间久了�
 ![](https://about.gitlab.com/images/git_flow/github_flow.png)
 
 快速运行Gitlab
-------
+-----------
+
+
 
 
 Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installation/)提供多种Gitlab安装方式。此项目是基于Docker版本的Gitlab实现，开发者无需更多关心Gitlab安装过程，Docker镜像已做好了环境和依赖。
