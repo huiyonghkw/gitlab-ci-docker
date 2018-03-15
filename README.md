@@ -3,18 +3,19 @@
 此文档基于现有项目运行实践整理，其中包含了许多Gitlab、CI/CD相关概念，阅读需要有一定的Gitlab、Docker、CI/CD基础知识。
 
 ## 目录
-* [此项目能做什么](###此项目能做什么)
-​* [Git Flow / Github Flow /Gitlab Flow Git工作流](###Git Flow/ Github Flow /Gitlab Flow Git工作流)
-​* [快速运行Gitlab](###快速运行Gitlab)
-​* [持续集成/持续交互（CI/CD） ](###持续集成/持续交互（CI/CD） )
-​* [Gitlab Runner - 自动构建与部署的执行](###Gitlab Runner - 自动构建与部署的执行)
-​   * [1. 获取注册参数 ](####1. 获取注册参数 )
-​   * [2. 为项目注册一个Shell 类型的Gitlab Runner ](####2. 为项目注册一个Shell 类型的Gitlab Runner )
-​* [Gitlab CI/CD运行流程](###Gitlab CI/CD运行流程)
-​* [Gitlab CI/CD 分布式构建参考](###Gitlab CI/CD 分布式构建参考)
+* [此项目能做什么](#此项目能做什么)
+* [Git Flow / Github Flow /Gitlab Flow Git工作流](#Git Flow/ Github Flow /Gitlab Flow Git工作流)
+* [快速运行Gitlab](#快速运行Gitlab)
+* [持续集成/持续交互（CI/CD） ](#持续集成/持续交互（CI/CD） )
+* Gitlab Runner - 自动构建与部署的执行](#Gitlab Runner - 自动构建与部署的执行)
+  * [1. 获取注册参数 ](#1. 获取注册参数 )
+  * [2. 为项目注册一个Shell 类型的Gitlab Runner ](#2. 为项目注册一个Shell 类型的Gitlab Runner )
+* [Gitlab CI/CD运行流程](#Gitlab CI/CD运行流程)
+* [Gitlab CI/CD 分布式构建参考](#Gitlab CI/CD 分布式构建参考)
 
 
-### 此项目能做什么
+此项目能做什么
+------
 
 1. 分享一些关于团队Git版本控制使用心得。
 2. 提供一份Docker版本的Gtilab私有化仓库应用实现，让你在开发团队内部快速构建一套Git托管仓库系统。
@@ -23,7 +24,8 @@
 5. 加深对软件从编码 =》 构建 =》 测试 =》 部署的整个生命周期的认知，
 6. 为Web/Web API类型互联网产品自动化提供参考，适合中小型创业研发团队快速迭代版本。
 
-### Git Flow / Github Flow /Gitlab Flow Git工作流
+Git Flow / Github Flow /Gitlab Flow Git工作流
+------
 
 Git团队开发中，大家都在向仓库中提交功能代码，时间久了，分支与版本就逐渐增多而变得复杂，因此，一个合理的版本管理流程在项目初期就非常重要。
 
@@ -47,7 +49,9 @@ Git团队开发中，大家都在向仓库中提交功能代码，时间久了�
 
 ![](https://about.gitlab.com/images/git_flow/github_flow.png)
 
-### 快速运行Gitlab
+快速运行Gitlab
+------
+
 
 Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installation/)提供多种Gitlab安装方式。此项目是基于Docker版本的Gitlab实现，开发者无需更多关心Gitlab安装过程，Docker镜像已做好了环境和依赖。
 
@@ -83,9 +87,11 @@ Gitlab提供社区与企业版本，[官网](https://about.gitlab.com/installati
    f598844c561c        sameersbn/redis:latest            "/sbin/entrypoint.sh…"   7 seconds ago       Up 6 seconds        6379/tcp                                                gitlab-redis
    73d93b7cd110        sameersbn/postgresql:9.6-2        "/sbin/entrypoint.sh"    7 seconds ago       Up 5 seconds        0.0.0.0:5432->5432/tcp                                  gitlab-postgresql
    ```
-项目内置了Gitlab Runner镜像，默认会启动一台Gitlab Runner容器，让你在本地可以快速搭建CI/CD服务。
+   项目内置了Gitlab Runner镜像，默认会启动一台Gitlab Runner容器，让你在本地可以快速搭建CI/CD服务。
 
-### 持续集成/持续交互（CI/CD） 
+持续集成/持续交互（CI/CD） 
+------
+
 
 CI/CD 的全称是 Continuous Integration & Deployment (持续集成/部署)，是 extreme programming (极限编程) 的一部分。我们常用 CI 来做一些自动化工作，这种自动化工作会运行在一台集中的机器上，比如程序的打包，单元测试，部署等。 [维基百科  - 持续集成](https://zh.wikipedia.org/wiki/%E6%8C%81%E7%BA%8C%E6%95%B4%E5%90%88)
 
@@ -179,7 +185,9 @@ deploy_production:
 
 
 
-### Gitlab Runner - 自动构建与部署的执行
+Gitlab Runner - 自动构建与部署的执行
+------
+
 
 GitLab Runner 是一个开源项目， 它用来运行你定制的任务（jobs）并把结果返回给 GitLab。 GitLab Runner 配合[GitLab CI](https://about.gitlab.com/gitlab-ci)（GitLab 内置的持续集成服务） 协调完成任务。 [GitLab Runner](https://docs.gitlab.com.cn/runner/)
 
@@ -189,13 +197,17 @@ Gitlab Runner安装有多种方式，具体可以参考[官方文档](https://do
 
 Gitlab Runner安装运行之后，需要[注册到Gitlab项目中去](https://docs.gitlab.com.cn/runner/register/index.html)，才能使用其“功效”。
 
-#### 1. 获取注册参数 
+1.获取注册参数 
+------
+
 
 登录Gitlab控制台，选择一个Gitlab仓库，进入 Settings =》CI / CD =》Runners settings =》Expand，获取Runners相关参数。
 
 ![Gitlab Runner Register Parameters](./Gitlab-Runner-Register.png)
 
-#### 2. 为项目注册一个Shell 类型的Gitlab Runner 
+2.为项目注册一个Shell 类型的Gitlab Runner 
+------
+
 
 ```shell
 $ docker exec -it gitlab-ci-php-envoy-runner gitlab-ci-multi-runner register
@@ -237,13 +249,15 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 注册成功后，页面会多出一个正在运行的Runner绿色标志。
 
-### Gitlab CI/CD运行流程
+Gitlab CI/CD运行流程
+------
+
 
 如果你了解[bravist/lnmp-docker](https://github.com/bravist/lnmp-docker)，对于下面的图不会陌生，主要提供了一套Web应用自动构建与交付流程架构。
 
 通常情况下Gitlab Runner与Gitlab无需运行在同一台服务器，他们之间通信基于授信TOKEN，整个运行流程是：
 
-1. 基于Gitlab Flow 完成功能开发		
+1. 基于Gitlab Flow 完成功能开发   
 2. 提交Merge Request，等待功能发布申请
 3. 评审Merge Request，允许合并分支请求
 4. 触发Gitlab Runner运行
@@ -252,13 +266,15 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 以一个前端项目为例，构建过程会做以下任务
 
-+ 拉取Git代码	
++ 拉取Git代码 
 + 安装前端依赖
 + 打包、编译
 
 ![Usage-Docker](./Usage-Docker.png)
 
-### Gitlab CI/CD 分布式构建参考
+Gitlab CI/CD 分布式构建参考
+------
+
 
 本项目Gitlab Runner默认采用Shell方式执行部署任务，也即是Runner使用SSH登录到应用主机。你可以在Runner容器中生成新的ssh秘钥对（或者使用能够登录到应用主机的其他ssh秘钥对），确保能成功SSH到应用主机。
 
@@ -282,27 +298,27 @@ ssh root@47.*.*.69
 @servers(['sandbox' => 'root@47.*.*.45', 'production' => 'root@47.*.*.69'])
 
 @story('sandbox_deploy', ['on' => ['sandbox']])
-	git
-	logistics-debt
+  git
+  logistics-debt
 @endstory
 
 @story('production_deploy', ['on' => ['production']])
-	git
-	logistics-debt
+  git
+  logistics-debt
 @endstory
 
 
 @task('git')
-	cd /mnt/lnmp-docker/www/{{ $project }}/
-	git config --global user.email "chenghuiyong1987@gmail.com"
-	git config --global user.name "Gitlab Runner"
-	git pull origin {{ $branch }}
+  cd /mnt/lnmp-docker/www/{{ $project }}/
+  git config --global user.email "chenghuiyong1987@gmail.com"
+  git config --global user.name "Gitlab Runner"
+  git pull origin {{ $branch }}
 @endtask
-	
+  
 @task('logistics-debt')
-	cd /mnt/lnmp-docker/www/{{ $project }}/logistics-debt
-	cnpm install 
-	npm run build
+  cd /mnt/lnmp-docker/www/{{ $project }}/logistics-debt
+  cnpm install 
+  npm run build
 @endtask
 
 ```
