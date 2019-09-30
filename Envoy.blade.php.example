@@ -1,0 +1,92 @@
+{{-- 
+    # envoy run deploy --env=staging --branch=develop   
+    # 1. 克隆远程仓库
+    # 2. 安装Composer依赖
+    # 3. 创建符号链接
+    # 4. 删除历史部署目录(适用DEV环境)
+ --}}
+@servers(['ecs' => ['root@106.11.248.144']])
+
+@setup
+    $repository = 'git@gitlab.chenghuyiong.com:project/mp.git';
+    $staging_repository = 'git@127.0.0.1:project/mp.git';
+    $releases_dir = '/var/www/project/releases';
+    $app_dir = '/var/www/project';
+    $release = date('YmdHis');
+    $new_release_dir = $releases_dir .'/'. $release;
+    $branch = isset($branch) ? $branch : "develop";
+    $env = isset($env) ? $env : "staging";
+    $user = 'apache';
+    $current = $app_dir . '/current';
+    $runtime = $app_dir . '/runtime';
+    $link_rumtime = $new_release_dir . '/runtime';
+@endsetup
+
+@story('deploy')
+    clone_repository
+    run_composer
+    update_symlinks
+    clear_cache
+    change_permission
+@endstory
+
+@task('clone_repository', ['on' => ['ecs'], 'parallel' => true])
+    echo 'Cloning repository'
+    git config --global user.email "deployer@chenghuiyong.com"
+    git config --global user.name "Deployer"
+    [ -d {{ $releases_dir }} ] || mkdir {{ $releases_dir }}
+    @if ($env == 'staging')
+        git clone -b {{ $branch }} {{ $staging_repository }} {{ $new_release_dir }}
+    @else
+        git clone --depth 1 {{ $repository }} {{ $new_release_dir }}
+        cd {{ $new_release_dir }}
+        git reset --hard {{ $commit }}
+    @endif
+@endtask
+
+@task('run_composer', ['on' => ['ecs'], 'parallel' => true])
+    echo "Starting deployment ({{ $release }})"
+    cd {{ $new_release_dir }}
+    composer install --prefer-dist --no-scripts -q -o
+@endtask
+
+@task('update_symlinks', ['on' => ['ecs'], 'parallel' => true])
+    echo "Linking runtime directory"
+    cd {{ $new_release_dir }}
+    rm -rf {{ $link_rumtime }}
+    [ -d {{ $runtime }} ] || mkdir {{ $runtime }}
+    ln -nfs {{ $runtime }} {{ $link_rumtime }}
+    echo 'Linking .env file'
+    @if ($env == 'staging')
+        cp .env.sandbox .env
+    @endif
+    @if ($env == 'production')
+        cp .env.production .env
+    @endif
+    echo 'Linking current release'
+    ln -nfs {{ $new_release_dir }} {{ $current }}
+@endtask
+
+@task('clear_cache', ['on' => ['ecs'], 'parallel' => true])
+    echo 'Clearing cache'
+    cd {{ $new_release_dir }}
+    php think clear
+    php think migrate:run
+    php think optimize:autoload
+    php think optimize:config
+    php think optimize:route
+    @if ($env == 'staging')
+        echo 'Removing earlier app'
+        cd {{ $releases_dir }}
+        shopt -s extglob 
+        rm -rf !({{ $release }})
+    @endif
+@endtask
+
+@task('change_permission', ['on' => ['ecs'], 'parallel' => true])
+    echo 'Changing permission'
+    chown -R {{ $user }}:{{ $user }} {{ $new_release_dir }}
+    chown -R {{ $user }}:{{ $user }} {{ $current }}
+    chown -R {{ $user }}:{{ $user }} {{ $runtime }}
+    chmod -R 777 {{ $runtime }}
+@endtask
