@@ -1,6 +1,6 @@
 # 基于Docker快速搭建Gitlab与Gitlab CI/CD服务
 
-`推荐` [使用Gitlab Runner 部署Laravel 项目](https://github.com/bravist/gitlab-ci-docker/blob/master/laravel-gitlab-runner.md)
+`更新推荐` [使用Gitlab Runner 部署Laravel 项目](https://segmentfault.com/a/1190000020868208)
 
 此文档基于现有项目运行实践整理，其中包含了许多Gitlab、CI/CD相关概念，阅读需要有一定的Gitlab、Docker、CI/CD基础知识。
 
