@@ -1,5 +1,7 @@
 # 基于Docker快速搭建Gitlab与Gitlab CI/CD服务
 
+`推荐` [使用Gitlab Runner 部署Laravel 项目](https://github.com/bravist/gitlab-ci-docker/blob/master/laravel-gitlab-runner.md)
+
 此文档基于现有项目运行实践整理，其中包含了许多Gitlab、CI/CD相关概念，阅读需要有一定的Gitlab、Docker、CI/CD基础知识。
 
 ## 目录
@@ -107,7 +109,7 @@ Gitlab 从 8.* 版本后支持CI/CD，要使用CI/CD，先理解一些概念
 
 一次[Pipeline](https://docs.gitlab.com/ce/ci/pipelines.html)就是一次完整的构建任务，里面可以包含多个阶段（[stages](https://docs.gitlab.com/ce/ci/yaml/README.html#stages)）。
 
-**Stage** 
+**Stage**
 
 Stages表示任务构建的阶段。一次Pipeline中允许定义多个 Stages，这些 Stages 会有以下特点：
 
@@ -145,28 +147,28 @@ variables:
   PROJECT: laravel-demo
   GIT_DIR: /mnt/lnmp-docker
 # 拉取代码
-pull_code_test: 
+pull_code_test:
   stage: pull_code_test
-  only: 
+  only:
     - develop
-  script: 
+  script:
      - cd ${GIT_DIR}/${PROJECT}
      - git pull origin develop
 pull_code_production:
   stage: pull_code_production
   only:
     - master
-  script: 
+  script:
     - cd ${GIT_DIR}/${PROJECT}
     - git pull origin master
 # 安装依赖
 install_deps:
   stage: install_deps
-  script: 
+  script:
     - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} composer install
-build: 
+build:
   stage: build
-  script: 
+  script:
     # Run migrations
     - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan migrate
     # Cache clearing
@@ -175,12 +177,12 @@ build:
     - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan config:cache
     # Create a route cache file for faster route registration
     - docker exec -w ${WORK_DIR}/${PROJECT} ${PHP_FPM_CONTAINER} php artisan route:clear
-deploy_test: 
+deploy_test:
   stage: deploy_test
   script:
     - cd ${GIT_DIR}
     - docker-compose down && docker-compose build && docker-compose up -d
-deploy_production: 
+deploy_production:
   stage: deploy_production
   script:
     - cd ${GIT_DIR}
@@ -201,7 +203,7 @@ Gitlab Runner安装有多种方式，具体可以参考[官方文档](https://do
 
 Gitlab Runner安装运行之后，需要[注册到Gitlab项目中去](https://docs.gitlab.com.cn/runner/register/index.html)，才能使用其“功效”。
 
-获取注册参数 
+获取注册参数
 ------
 
 
@@ -244,7 +246,7 @@ Whether to lock the Runner to current project [true/false]:
 
 Registering runner... succeeded                     runner=eU9zcqjR
 
-#输入Runner的类型 
+#输入Runner的类型
 Please enter the executor: shell, virtualbox, docker-ssh+machine, kubernetes, docker, docker-ssh, parallels, ssh, docker+machine:
 shell
 
@@ -270,7 +272,7 @@ CI/CD运行流程
 
 以一个前端项目为例，构建过程会做以下任务
 
-+ 拉取Git代码 
++ 拉取Git代码
 + 安装前端依赖
 + 打包、编译
 
@@ -318,10 +320,10 @@ ssh root@47.*.*.69
   git config --global user.name "Gitlab Runner"
   git pull origin {{ $branch }}
 @endtask
-  
+
 @task('logistics-debt')
   cd /mnt/lnmp-docker/www/{{ $project }}/logistics-debt
-  cnpm install 
+  cnpm install
   npm run build
 @endtask
 
@@ -333,7 +335,7 @@ ssh root@47.*.*.69
 stages:
   - sandbox
   - production
- 
+
 variables:
   ENVOY: /root/.composer/vendor/bin/envoy
 
@@ -342,21 +344,13 @@ sandbox:
    script:
      - cd $CI_PROJECT_DIR
      - $ENVOY run sandbox_deploy --branch=develop --project=$CI_PROJECT_NAME
-   only: 
+   only:
     - develop
-production: 
+production:
   stage: production
-  script: 
+  script:
      - cd $CI_PROJECT_DIR
      - $ENVOY run production_deploy --branch=master --project=$CI_PROJECT_NAME
   only:
     - master
 ```
-
-
-
-
-
-
-
-
